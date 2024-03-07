@@ -1,0 +1,41 @@
+.scroller {
+  --scrollbar-color-track: $grey-dark;
+  --scrollbar-color-thumb: hotpink;
+}
+
+@supports (scrollbar-width: auto) {
+  .scroller {
+    scrollbar-color: var(--scrollbar-color-thumb) var(--scrollbar-color-track);
+  }
+
+  .warning {
+    display: none;
+  }
+}
+
+.scroller {
+  border: 1px solid #000;
+  width: 100%;
+  height: 50vh;
+
+  position: relative;
+  container-type: inline-size;
+
+  &:has(.content) {
+    background: white;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .content {
+    min-height: 75vh;
+    padding: 1rem 1rem;
+
+    *:first-child {
+      margin-top: 0;
+    }
+    *:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

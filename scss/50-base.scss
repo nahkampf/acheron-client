@@ -1,0 +1,69 @@
+body {
+    padding:1;
+    margin:0;
+    background-color: $black;
+    color: $grey;
+    font-family: $font-stack;
+    font-size: 16px;
+    height: 100vh;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+.topbar {
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 32px;
+    background-color: $yellow;
+    color: $black;
+    padding:0;
+    margin:0;
+    z-index:99999999;
+}
+
+.topbar-left {
+    position:absolute;
+    top:6px;
+    left:0;
+    padding:0;
+    margin:0;
+}
+
+.topbar-right {
+    position:absolute;
+    top:6px;
+    right:0;
+    padding:0;
+    margin:0;
+}
+.bottombar {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: $yellow-dark;
+    color: $yellow;
+    z-index:99999999;
+}
+.main {
+    position:relative;
+    top:32px;
+    width:100%;
+}
+
+table {
+    width: 100% !important;
+}
+
+table.yellow {
+    border: 1px solid $yellow;
+}
+
+table.yellow th {
+    background-color: $yellow;
+    color: $black;
+}
