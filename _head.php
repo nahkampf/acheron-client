@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <head>
         <title><?=($window_title) ?: "ACHERON TERMINAL" ?></title>

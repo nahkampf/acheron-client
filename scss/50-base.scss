@@ -59,11 +59,22 @@ table {
     width: 100% !important;
 }
 
-table.yellow {
-    border: 1px solid $yellow;
+@each $colorname, $colorcode in $bright-colors {
+    table .#{$colorname} {
+        border: 1px solid $colorcode;
+    }
+    table .#{$colorname} th {
+        background-color: $colorcode;
+        color: $black;
+    }
 }
 
-table.yellow th {
-    background-color: $yellow;
-    color: $black;
+@each $colorname, $colorcode in $dark-colors {
+    table .#{$colorname} {
+        border: 1px solid $colorcode;
+    }
+    table .#{$colorname} th {
+        background-color: $colorcode;
+        color: $black;
+    }
 }
