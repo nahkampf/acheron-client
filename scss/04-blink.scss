@@ -1,0 +1,19 @@
+// blink only foreground color
+.fgblink {
+    animation: fg-blinker 1s linear infinite;
+  }
+  
+@keyframes fg-blinker {
+    0% {
+        color: currentColor;
+    }
+    49% {
+        color: currentColor;
+    }
+    50% {
+        color: rgba(0,0,0,0);
+    }
+    100% {
+        color: rgba(0,0,0,0);
+    }
+}

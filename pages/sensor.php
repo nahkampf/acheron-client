@@ -1,4 +1,4 @@
-<table class="yellow">
+<table>
     <tr>
         <td style="width: 33%">
             &gt; SENSOR NETWORK
@@ -24,7 +24,7 @@
                     </tr>
                     <tr>
                         <td>LAMBDA</td>
-                        <td>ONLINE</td>
+                        <td><span class="red fgblink">OFFLINE</span></td>
                     </tr>
                     <tr>
                         <td>OMICRON</td>
@@ -39,7 +39,7 @@
         </td>
         <td>
             &gt; UNHANDLED INTERCEPTS
-            <table class="red zebra">
+            <table class="red">
                 <thead>
                     <tr>
                         <th>INTERCEPT TIME</th>

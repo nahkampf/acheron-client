@@ -83,7 +83,7 @@ meter {
 /* revert for bug in Chromium browsers
    - fix for the content editable attribute will work properly.
    - webkit-user-select: auto; added for Safari in case of using user-select:none on wrapper element*/
-:where([contenteditable]:not([contenteditable="false"])) {
+:where([contenteditable]:not([contenteditable=false])) {
   -moz-user-modify: read-write;
   -webkit-user-modify: read-write;
   overflow-wrap: break-word;
@@ -92,7 +92,7 @@ meter {
 }
 
 /* apply back the draggable feature - exist only in Chromium and Safari */
-:where([draggable="true"]) {
+:where([draggable=true]) {
   -webkit-user-drag: element;
 }
 
@@ -137,7 +137,6 @@ meter {
   .scroller {
     scrollbar-color: var(--scrollbar-color-thumb) var(--scrollbar-color-track);
   }
-
   .warning {
     display: none;
   }
@@ -165,6 +164,24 @@ meter {
   margin-bottom: 0;
 }
 
+.fgblink {
+  animation: fg-blinker 1s linear infinite;
+}
+
+@keyframes fg-blinker {
+  0% {
+    color: currentColor;
+  }
+  49% {
+    color: currentColor;
+  }
+  50% {
+    color: rgba(0, 0, 0, 0);
+  }
+  100% {
+    color: rgba(0, 0, 0, 0);
+  }
+}
 body {
   padding: 1;
   margin: 0;
@@ -228,157 +245,225 @@ table {
   width: 100% !important;
 }
 
-table .grey {
-  border: 1px solid #AAAAAA;
+table.grey {
+  border: 1px solid #AAAAAA !important;
 }
 
-table .grey th {
-  background-color: #AAAAAA;
+table.grey th {
+  background-color: #AAAAAA !important;
   color: #181918;
 }
 
-table .blue {
-  border: 1px solid #5555FF;
+table.blue {
+  border: 1px solid #5555FF !important;
 }
 
-table .blue th {
-  background-color: #5555FF;
+table.blue th {
+  background-color: #5555FF !important;
   color: #181918;
 }
 
-table .green {
-  border: 1px solid #55FF55;
+table.green {
+  border: 1px solid #55FF55 !important;
 }
 
-table .green th {
-  background-color: #55FF55;
+table.green th {
+  background-color: #55FF55 !important;
   color: #181918;
 }
 
-table .cyan {
-  border: 1px solid #55FFFF;
+table.cyan {
+  border: 1px solid #55FFFF !important;
 }
 
-table .cyan th {
-  background-color: #55FFFF;
+table.cyan th {
+  background-color: #55FFFF !important;
   color: #181918;
 }
 
-table .magenta {
-  border: 1px solid #FF55FF;
+table.magenta {
+  border: 1px solid #FF55FF !important;
 }
 
-table .magenta th {
-  background-color: #FF55FF;
+table.magenta th {
+  background-color: #FF55FF !important;
   color: #181918;
 }
 
-table .red {
-  border: 1px solid #FF5555;
+table.red {
+  border: 1px solid #FF5555 !important;
 }
 
-table .red th {
-  background-color: #FF5555;
+table.red th {
+  background-color: #FF5555 !important;
   color: #181918;
 }
 
-table .yellow {
-  border: 1px solid #FFFF55;
+table.yellow {
+  border: 1px solid #FFFF55 !important;
 }
 
-table .yellow th {
-  background-color: #FFFF55;
+table.yellow th {
+  background-color: #FFFF55 !important;
   color: #181918;
 }
 
-table .orange {
-  border: 1px solid #ffc12b;
+table.orange {
+  border: 1px solid #ffc12b !important;
 }
 
-table .orange th {
-  background-color: #ffc12b;
+table.orange th {
+  background-color: #ffc12b !important;
   color: #181918;
 }
 
-table .white {
-  border: 1px solid #ffffff;
+table.white {
+  border: 1px solid #ffffff !important;
 }
 
-table .white th {
-  background-color: #ffffff;
+table.white th {
+  background-color: #ffffff !important;
   color: #181918;
 }
 
-table .grey-dark {
-  border: 1px solid #555555;
+table.grey-dark {
+  border: 1px solid #555555 !important;
 }
 
-table .grey-dark th {
-  background-color: #555555;
+table.grey-dark th {
+  background-color: #555555 !important;
   color: #181918;
 }
 
-table .blue-dark {
-  border: 1px solid #0000AA;
+table.blue-dark {
+  border: 1px solid #0000AA !important;
 }
 
-table .blue-dark th {
-  background-color: #0000AA;
+table.blue-dark th {
+  background-color: #0000AA !important;
   color: #181918;
 }
 
-table .green-dark {
-  border: 1px solid #00AA00;
+table.green-dark {
+  border: 1px solid #00AA00 !important;
 }
 
-table .green-dark th {
-  background-color: #00AA00;
+table.green-dark th {
+  background-color: #00AA00 !important;
   color: #181918;
 }
 
-table .cyan-dark {
-  border: 1px solid #00AAAA;
+table.cyan-dark {
+  border: 1px solid #00AAAA !important;
 }
 
-table .cyan-dark th {
-  background-color: #00AAAA;
+table.cyan-dark th {
+  background-color: #00AAAA !important;
   color: #181918;
 }
 
-table .magenta-dark {
-  border: 1px solid #AA00AA;
+table.magenta-dark {
+  border: 1px solid #AA00AA !important;
 }
 
-table .magenta-dark th {
-  background-color: #AA00AA;
+table.magenta-dark th {
+  background-color: #AA00AA !important;
   color: #181918;
 }
 
-table .red-dark {
-  border: 1px solid #AA0000;
+table.red-dark {
+  border: 1px solid #AA0000 !important;
 }
 
-table .red-dark th {
-  background-color: #AA0000;
+table.red-dark th {
+  background-color: #AA0000 !important;
   color: #181918;
 }
 
-table .yellow-dark {
-  border: 1px solid #aa911b;
+table.yellow-dark {
+  border: 1px solid #aa911b !important;
 }
 
-table .yellow-dark th {
-  background-color: #aa911b;
+table.yellow-dark th {
+  background-color: #aa911b !important;
   color: #181918;
 }
 
-table .orange-dark {
-  border: 1px solid #b17711;
+table.orange-dark {
+  border: 1px solid #b17711 !important;
 }
 
-table .orange-dark th {
-  background-color: #b17711;
+table.orange-dark th {
+  background-color: #b17711 !important;
   color: #181918;
+}
+
+span.grey {
+  color: #AAAAAA !important;
+}
+
+span.blue {
+  color: #5555FF !important;
+}
+
+span.green {
+  color: #55FF55 !important;
+}
+
+span.cyan {
+  color: #55FFFF !important;
+}
+
+span.magenta {
+  color: #FF55FF !important;
+}
+
+span.red {
+  color: #FF5555 !important;
+}
+
+span.yellow {
+  color: #FFFF55 !important;
+}
+
+span.orange {
+  color: #ffc12b !important;
+}
+
+span.white {
+  color: #ffffff !important;
+}
+
+span.grey-dark {
+  color: #555555 !important;
+}
+
+span.blue-dark {
+  color: #0000AA !important;
+}
+
+span.green-dark {
+  color: #00AA00 !important;
+}
+
+span.cyan-dark {
+  color: #00AAAA !important;
+}
+
+span.magenta-dark {
+  color: #AA00AA !important;
+}
+
+span.red-dark {
+  color: #AA0000 !important;
+}
+
+span.yellow-dark {
+  color: #aa911b !important;
+}
+
+span.orange-dark {
+  color: #b17711 !important;
 }
 
 /*# sourceMappingURL=style.css.map */
