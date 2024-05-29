@@ -25,6 +25,10 @@ window.addEventListener("load", (event) => {
     }
 
     function updateTable(signal, firstRun = false) {
+        // TODO: We need some method of removing dead/orphaned signals
+        // from the table without wiping it (because that will trigger)
+        // "new signal detected"
+
         // step 1: does this signal already exist in the table?
         oldSignal = document.getElementById("signal_" + signal.id);
         if (oldSignal) {
@@ -40,7 +44,7 @@ window.addEventListener("load", (event) => {
         // if it exists, update that column
         // if it doesn't exist, append that column to the top
         var tbody = document.getElementById("intercepts").getElementsByTagName('tbody')[0];
-        row = tbody.insertRow();
+        row = tbody.insertRow(0);
         row.setAttribute('id', 'signal_' + signal.id);
         // is this signal handled?
         if (signal.handled == "N") {
