@@ -1,3 +1,87 @@
+<script src="/api.js"></script>
+<script>
+window.addEventListener("load", (event) => {
+    async function getSignals(firstRun = false) {
+        const data = await get("http://acheron-server.test:81/public/api/signals");
+        if (data) {
+            handleSignals(data, firstRun);
+        }
+    }
+
+    getSignals(true); // do the first one
+
+    // then set up an interval
+    const updateSignals = setInterval(() => {
+        var signals = getSignals();       
+    }, 5000);
+
+    function handleSignals(signalData, firstRun = false) {
+        Object.entries(signalData.contents).forEach((entry) => {
+            const [key, value] = entry;
+            // entry[1] is our object
+            var signal = entry[1];
+            updateTable(signal, firstRun);
+        });
+    }
+
+    function updateTable(signal, firstRun = false) {
+        // step 1: does this signal already exist in the table?
+        oldSignal = document.getElementById("signal_" + signal.id);
+        if (oldSignal) {
+            document.getElementById("signal_" + signal.id).remove();
+        } else {
+            if (!firstRun) {
+                let newSignalNotification = new Audio('/assets/sound/newsignal.mp3');
+                newSignalNotification.play();
+                console.log("Hey, new signal! Play a sound!");
+            }
+        }
+
+        // if it exists, update that column
+        // if it doesn't exist, append that column to the top
+        var tbody = document.getElementById("intercepts").getElementsByTagName('tbody')[0];
+        row = tbody.insertRow();
+        row.setAttribute('id', 'signal_' + signal.id);
+        // is this signal handled?
+        if (signal.handled == "N") {
+            row.setAttribute('class', 'unhandled');
+        } else {
+            row.setAttribute('class', 'handled');
+        }
+        const cell_time = row.insertCell();
+        if (signal.interceptTime) {
+            cell_time.textContent = signal.interceptTime.substring(11);
+        } else {
+            cell_time.textContent = "?";
+        }
+
+        const cell_primary = row.insertCell();
+        var bearing = new Number(signal.primary_sensor.bearings.bearing_from_source);
+        cell_primary.textContent = signal.primary_sensor.name + ": " + bearing.toPrecision(3) + "°";
+
+        cell_secondary = row.insertCell();
+        var bearing = new Number(signal.secondary_sensor.bearings.bearing_from_source);
+        cell_secondary.textContent = signal.secondary_sensor.name + ": " + bearing.toPrecision(3) + "°";
+
+        const cell_velocity = row.insertCell();
+        cell_velocity.textContent = signal.velocity + " m/s";
+
+        const cell_heading = row.insertCell();
+        heading = signal.heading;
+        if (!heading) {
+            heading = "---";
+        } else {
+            heading = heading + "°";
+        }
+        cell_heading.textContent = heading;
+
+        cell_designation = row.insertCell();
+        var desig = signal.designation;
+        if (!desig) desig = "---";
+        cell_designation.textContent = desig;
+    }
+});    
+</script>
 <table>
     <tr>
         <td style="width: 33%">
@@ -37,36 +121,11 @@
                 </tbody>
             </table>
         </td>
-        <td>
-            &gt; UNHANDLED INTERCEPTS
-            <table class="red">
-                <thead>
-                    <tr>
-                        <th>INTERCEPT TIME</th>
-                        <th>PRIMARY</th>
-                        <th>SECONDARY</th>
-                        <th>VELOCITY</th>
-                        <th>HEADING</th>
-                        <th>DESIGNATION</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>23:42:12</td>
-                        <td>SIGMA [301&deg;]</td>
-                        <td>THETA [052&deg;]</td>
-                        <td>2m/s</td>
-                        <td>142&deg;</td>
-                        <td>---</td>
-                    </tr>
-                </tbody>
-            </table>
-        </td>
     </tr>
     <tr>
         <td colspan="2">
-            &gt; SIGNALS HANDLED
-        <table class="green zebra">
+            &gt; SIGNAL LOG
+        <table class="green zebra" id="intercepts">
         <thead>
             <tr>
                 <th>INTERCEPT TIME</th>
@@ -78,33 +137,6 @@
             </tr>
         </thead>
         <tbody>
-<?php
-for($x=0; $x<15; $x++) {
-  $sensors = ["SIGMA", "THETA", "KAPPA", "LAMBDA", "OMICRON", "SIGMA"];
-  rnd:
-  $sensor1 = $sensors[mt_rand(0, count($sensors) -1)];
-  $sensor2 = $sensors[mt_rand(0, count($sensors) -1)];
-  $desigs = ["XM1 HVY TRANSPORT", "XM2 LT TRANSPORT", "XM3 LOGISTICS NODE", "XM4 FUELER", "XM5 RECHARGE DRONE", "XM6 SOIL SAMPLER", "XM7 DRILL RIG", "XM8 SPORE BARGE", "XM9 LIFTER", "XM10 LIGHT LIFTER", "XM11 MANIPULATOR", "XM12 LT REPAIR UNIT", "XM13 HVY REPAIR UNIT", "XM14 CONDUIT LAYER", "XM15 EARTHMOVER", "XM16 UTILITY BARGE", "XM17 LT ORBITAL TUG", "XM18 HVY ORBITAL TUG", "XM19 SCRAP EXTRACTOR", "XM20 MOBILE SMELTER", "XM21 WATER CRACKER", "XM22 BIOHARVESTER", "XM23 PUPPETMASTER", "XM24 RHINO", "XM25 HAMMERHEAD", "XM26 TARANTULA", "XM27 VAMPIRE", "XM28 NIGHTOWL", "XM29 CRAB", "XM30 MOSQUITO", "XM31 SWARM", "XM32 SCYTHE"];
-  if ($sensor1 == $sensor2) goto rnd;
-  $vel = mt_rand(0,5);
-  if ($vel == 0) {
-    $vel = "STATIONARY";
-  } else {
-    $vel = $vel . "." . mt_rand(0,9) . " m/s";
-  }
-  $desig = $desigs[mt_rand(0, count($desigs) -1)];
-?>
-            <tr>
-                <td>23:42:12</td>
-                <td><?=$sensor1?> [<?=mt_rand(0, 359)?>&deg;]</td>
-                <td><?=$sensor2?> [<?=mt_rand(0, 359)?>&deg;]</td>
-                <td><?=$vel?></td>
-                <td><?=($vel=="STATIONARY") ? "---" : mt_rand(0, 350) . "&deg;";?></td>
-                <td><?=$desig?></td>
-            </tr>
-<?php
-}
-?>
         </tbody>
         </table>
     </td>

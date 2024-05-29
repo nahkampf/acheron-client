@@ -90,3 +90,11 @@ table {
         color: $colorcode !important;
     }
 }
+
+tr.handled {
+}
+
+tr.unhandled {
+    background-color: $red;
+    color: $black;
+}

@@ -1,41 +1,28 @@
-function get(url) {
-    fetch("proxy.php?url=" + url, {
+async function get(url) {
+    try {
+      const response = await fetch("proxy.php?url=" + url, {
         method: "GET",
         headers: {
-            "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-    })
-    .then(function(response) {
-        if (response.status === 200) {
-            return response.json();
-        } else {
-            throw new Error("Request failed");
-        }
-    })
-    .then(function(data) {
-        console.log(data);
-    })
-    .catch(function(error) {
-        console.error("Error: " + error.message);
-    });
+      });
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Error: " + error.message);
+    }
 }
 
-function post(url, formData = null) {
-    fetch("proxy.php?url=" + url, {
+async function post(url, formData = null) {
+    try {
+      const response = await fetch("proxy.php?url=" + url, {
         method: "POST",
-        body: formData
-    })
-    .then(function(response) {
-        if (response.status === 200) {
-            return response.json();
-        } else {
-            throw new Error("Request failed");
-        }
-    })
-    .then(function(data) {
-        console.log(data);
-    })
-    .catch(function(error) {
-        console.error("Error: " + error.message);
-    });
+        body: formData,
+      });
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Error: " + error.message);
+    }
 }
+
