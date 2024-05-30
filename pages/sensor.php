@@ -88,7 +88,7 @@ window.addEventListener("load", (event) => {
 </script>
 <table>
     <tr>
-        <td style="width: 33%">
+        <td style="width: 50%">
             &gt; SENSOR NETWORK
             <table class="cyan zebra">
                 <thead>
@@ -125,7 +125,46 @@ window.addEventListener("load", (event) => {
                 </tbody>
             </table>
         </td>
+        <td style="width: 50%">
+        &gt; SURFOPS POSITION TRACKING
+        <table class="blue zebra">
+                <thead>
+                    <tr>
+                        <th>SURFOPS POSITION FIX</th>
+                        <th>TIME</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>??</td>
+                        <td>17:32:12</td>
+                    </tr>
+                    <tr>
+                        <td>??</td>
+                        <td>17:29:17</td>
+                    </tr>
+                    <tr>
+                        <td>??</td>
+                        <td>17:22:12</td>
+                    </tr>
+                    <tr>
+                        <td>??</td>
+                        <td>17:18:35</td>
+                    </tr>
+                    <tr>
+                        <td>??</td>
+                        <td>17:13:04</td>
+                    </tr>
+                    <tr>
+                        <td>??</td>
+                        <td>17:08:01</td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
     </tr>
+</table>
+<table>
     <tr>
         <td colspan="2">
             &gt; SIGNAL LOG
