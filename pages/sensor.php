@@ -126,7 +126,7 @@ window.addEventListener("load", (event) => {
             document.getElementById("signal_" + signal.id).remove();
         } else {
             if (!firstRun) {
-                let newSignalNotification = new Audio('/assets/sound/newsignal.mp3');
+                let newSignalNotification = new Audio('/assets/sound/signal_intercepted.wav');
                 newSignalNotification.play();
                 console.log("Hey, new signal! Play a sound!");
             }

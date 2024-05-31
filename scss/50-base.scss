@@ -98,3 +98,39 @@ tr.unhandled {
     background-color: $red;
     color: $black;
 }
+
+.hidden {
+    display:none;
+}
+
+#codered {
+    background-color: $red;
+}
+#codered p {
+    color: $white;
+    font-size: 32px;
+}
+#codered .codeheader {
+    font-size: 64px !important;
+}
+#codeblue {
+    background-color: $blue;
+}
+#codeblue p {
+    color: $white;
+    font-size: 32px;
+}
+#codeblue .codeheader {
+    font-size: 64px !important;
+}
+#codered::backdrop {
+    background-color: $red-dark;
+    opacity:0.75;
+}
+#codeblue::backdrop {
+    background-color: $blue-dark;
+    opacity:0.75;
+}
+dialog {
+    z-index:100000;
+}

@@ -170,16 +170,16 @@ meter {
 
 @keyframes fg-blinker {
   0% {
-    color: currentColor;
+    color: currentColor !important;
   }
   49% {
-    color: currentColor;
+    color: currentColor !important;
   }
   50% {
-    color: rgba(0, 0, 0, 0);
+    color: rgba(0, 0, 0, 0) !important;
   }
   100% {
-    color: rgba(0, 0, 0, 0);
+    color: rgba(0, 0, 0, 0) !important;
   }
 }
 body {
@@ -469,6 +469,51 @@ table.orange-dark th {
 tr.unhandled {
   background-color: #FF5555;
   color: #181918;
+}
+
+.hidden {
+  display: none;
+}
+
+#codered {
+  background-color: #FF5555;
+}
+
+#codered p {
+  color: #ffffff;
+  font-size: 32px;
+}
+
+#codered .codeheader {
+  font-size: 64px !important;
+}
+
+#codeblue {
+  background-color: #5555FF;
+}
+
+#codeblue p {
+  color: #ffffff;
+  font-size: 32px;
+  animation: fg-blinker 1s linear infinite;
+}
+
+#codeblue .codeheader {
+  font-size: 64px !important;
+}
+
+#codered::backdrop {
+  background-color: #AA0000;
+  opacity: 0.75;
+}
+
+#codeblue::backdrop {
+  background-color: #0000AA;
+  opacity: 0.75;
+}
+
+dialog {
+  z-index: 100000;
 }
 
 /*# sourceMappingURL=style.css.map */
