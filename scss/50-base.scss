@@ -80,13 +80,13 @@ table {
 }
 
 @each $colorname, $colorcode in $bright-colors {
-    span.#{$colorname} {
+    .#{$colorname} {
         color: $colorcode !important;
     }
 }
 
 @each $colorname, $colorcode in $dark-colors {
-    span.#{$colorname} {
+    .#{$colorname} {
         color: $colorcode !important;
     }
 }

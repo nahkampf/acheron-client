@@ -6,7 +6,7 @@
     Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property
     - The "symbol *" part is to solve Firefox SVG sprite bug
     - The "html" element is excluded, otherwise a bug in Chrome breaks the CSS hyphens property (https://github.com/elad2412/the-new-css-reset/issues/36)
-*/
+ */
 *:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)) {
   all: unset;
   display: revert;
@@ -398,71 +398,71 @@ table.orange-dark th {
   color: #181918;
 }
 
-span.grey {
+.grey {
   color: #AAAAAA !important;
 }
 
-span.blue {
+.blue {
   color: #5555FF !important;
 }
 
-span.green {
+.green {
   color: #55FF55 !important;
 }
 
-span.cyan {
+.cyan {
   color: #55FFFF !important;
 }
 
-span.magenta {
+.magenta {
   color: #FF55FF !important;
 }
 
-span.red {
+.red {
   color: #FF5555 !important;
 }
 
-span.yellow {
+.yellow {
   color: #FFFF55 !important;
 }
 
-span.orange {
+.orange {
   color: #ffc12b !important;
 }
 
-span.white {
+.white {
   color: #ffffff !important;
 }
 
-span.grey-dark {
+.grey-dark {
   color: #555555 !important;
 }
 
-span.blue-dark {
+.blue-dark {
   color: #0000AA !important;
 }
 
-span.green-dark {
+.green-dark {
   color: #00AA00 !important;
 }
 
-span.cyan-dark {
+.cyan-dark {
   color: #00AAAA !important;
 }
 
-span.magenta-dark {
+.magenta-dark {
   color: #AA00AA !important;
 }
 
-span.red-dark {
+.red-dark {
   color: #AA0000 !important;
 }
 
-span.yellow-dark {
+.yellow-dark {
   color: #aa911b !important;
 }
 
-span.orange-dark {
+.orange-dark {
   color: #b17711 !important;
 }
 
