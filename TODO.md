@@ -9,12 +9,37 @@
 - [ ] Bonus idea: Sensors can become "decalibrated". If possible make some interesting interface where sensor operators can "recalibrate" them. (look at https://jsfiddle.net/kwn83xtv/)
 
 # SIGINT
+- [ ] List all "handled" signals
+- [ ] Dialog popup to show spectrogram and soundfile player
+  - [ ] Sidebar to show drilldown identifier (carrier waves, data packets)
+  - [ ] "Select" identification
+  - [ ] Send API call to server with updated info
 
 # SCIENCE/DECRYPT
+- [ ] List all signals
+- [ ] Split full screen "decryptor":
+  - [ ] "Hexeditor" of signal data
+  - [ ] Sideview of known phrases
+  - [ ] "Finalize message"
+- [ ] Soil/air/water sample data
+  - [ ] Add new sample
+  - [ ] Graphs
 
 # ARCHIVE
+- [ ] Table w/ filters for all known machine types
 
 # GEOLOC
+- [ ] Show autoupdating map
+- [ ] "Layer" toggle: SENSORS, REFPOINTS, SURFOPS track, SIGNALS
+- [ ] Drop a needle (position + designation -> select from list)
+- [ ] Clickable markers (info popup)
+- [ ] Write out designation beneath marker?
+
+# BIOMONITOR
+- [X] Show data
+- [ ] Audible alerts
+- [X] Get data from server
+- Simulate fluctuations in vitals within "preset" ranges (based on server dataö)
 
 # General
 ## Bootup/raspberry stuff
