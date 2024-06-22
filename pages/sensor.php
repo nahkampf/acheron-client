@@ -1,6 +1,97 @@
 <script src="/api.js"></script>
 <script>
 window.addEventListener("load", (event) => {
+    /**
+     * SENSORS
+     */
+    async function getSensors() {
+        const data = await get("http://acheron-server.test:81/public/api/sensors");
+        if (data) {
+            handleSensors(data);
+        }
+    }
+
+    function handleSensors(sensorData) {
+        // compare our cache to the new data to find changes
+        var cachedSensors = JSON.parse(window.localStorage.getItem("cachedSensors"));
+        if (cachedSensors == null) {
+            cachedSensors = sensorData.contents;
+            window.localStorage.setItem("cachedSensors", JSON.stringify(cachedSensors));
+        }
+        var existsInCache = 0;
+        var isUpdated = 0;
+        var offlineNotification = 0;
+        var onlineNotification = 0;
+        Object.entries(sensorData.contents).forEach((sensor) => {
+            Object.entries(cachedSensors).forEach((cachedSensor) => {
+                if (cachedSensor[1].id == sensor[1].id) {
+                    existsInCache++;
+                    if (cachedSensor[1].status != sensor[1].status) {
+                        if (cachedSensor[1].status == "online") {
+                            if (offlineNotification < 1) {
+                                offlineNotification = 1;
+                                let newSignalNotification = new Audio('/assets/sound/sensor_offline.wav');
+                                newSignalNotification.play();
+                            }
+                        }
+                        if (cachedSensor[1].status == "offline") {
+                            if (onlineNotification < 1) {
+                                onlineNotification = 1;
+                                let newSignalNotification = new Audio('/assets/sound/sensor_online.wav');
+                                newSignalNotification.play();
+                            }
+                        }
+                        isUpdated++;
+                    }
+                }
+            });
+        });
+        //console.log(isUpdated);
+        if (isUpdated > 0) {
+        }
+        window.localStorage.setItem("cachedSensors", JSON.stringify(sensorData.contents));
+        
+        // then wipe the table
+        var tbody = document.getElementById("sensors").getElementsByTagName('tbody')[0];
+        tbody.innerHTML = "";
+        Object.entries(sensorData.contents).forEach((entry) => {
+            const [key, value] = entry;
+            // entry[1] is our object
+            var sensor = entry[1];
+            updateSensorTable(sensor);
+        });
+    }
+    // run a first one
+    getSensors();
+
+    // then set up an interval
+    const updateSensors = setInterval(() => {
+        var sensors = getSensors();       
+    }, 5000);
+
+    function updateSensorTable(sensor) {
+        // if it exists, update that column
+        // if it doesn't exist, append that column to the top
+        var tbody = document.getElementById("sensors").getElementsByTagName('tbody')[0];
+        row = tbody.insertRow(0);
+        row.setAttribute('id', 'sensor_' + sensor.id);
+        row.setAttribute('data-status', sensor.status);
+        const cell_name = row.insertCell();
+        cell_name.textContent = sensor.name;
+
+        cell_status = row.insertCell();
+        if (sensor.status == "online") {
+            cell_status.textContent = "ONLINE";
+            cell_status.className = "green";
+        } else {
+            cell_status.textContent = "OFFLINE";
+            cell_status.className = "red fgblink";
+        }
+    }
+
+    /**
+     * SIGNALS
+     */
     async function getSignals(firstRun = false) {
         const data = await get("http://acheron-server.test:81/public/api/signals");
         if (data) {
@@ -35,7 +126,7 @@ window.addEventListener("load", (event) => {
             document.getElementById("signal_" + signal.id).remove();
         } else {
             if (!firstRun) {
-                let newSignalNotification = new Audio('/assets/sound/newsignal.mp3');
+                let newSignalNotification = new Audio('/assets/sound/signal_intercepted.wav');
                 newSignalNotification.play();
                 console.log("Hey, new signal! Play a sound!");
             }
@@ -90,7 +181,7 @@ window.addEventListener("load", (event) => {
     <tr>
         <td style="width: 50%">
             &gt; SENSOR NETWORK
-            <table class="cyan zebra">
+            <table class="cyan zebra" id="sensors">
                 <thead>
                     <tr>
                         <th>SENSOR</th>
@@ -98,30 +189,6 @@ window.addEventListener("load", (event) => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>EPSILON</td>
-                        <td>ONLINE</td>
-                    </tr>
-                    <tr>
-                        <td>THETA</td>
-                        <td>ONLINE</td>
-                    </tr>
-                    <tr>
-                        <td>KAPPA</td>
-                        <td>ONLINE</td>
-                    </tr>
-                    <tr>
-                        <td>LAMBDA</td>
-                        <td><span class="red fgblink">OFFLINE</span></td>
-                    </tr>
-                    <tr>
-                        <td>OMICRON</td>
-                        <td>ONLINE</td>
-                    </tr>
-                    <tr>
-                        <td>SIGMA</td>
-                        <td>ONLINE</td>
-                    </tr>
                 </tbody>
             </table>
         </td>

@@ -5,15 +5,15 @@
   
 @keyframes fg-blinker {
     0% {
-        color: currentColor;
+        color: currentColor !important;
     }
     49% {
-        color: currentColor;
+        color: currentColor !important;
     }
     50% {
-        color: rgba(0,0,0,0);
+        color: rgba(0,0,0,0) !important;
     }
     100% {
-        color: rgba(0,0,0,0);
+        color: rgba(0,0,0,0) !important;
     }
 }

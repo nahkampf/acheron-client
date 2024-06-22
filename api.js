@@ -1,6 +1,6 @@
 async function get(url) {
     try {
-      const response = await fetch("proxy.php?url=" + url, {
+      const response = await fetch("/proxy.php?url=" + url, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
