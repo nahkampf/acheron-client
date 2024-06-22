@@ -16,7 +16,9 @@ We are using https://www.naturalreaders.com/online/ with the setting English (US
 - [x] SIGNAL INTERCEPTED (`signal_intercepted.wav`)
 - [x] SENSOR OFFLINE (`sensor_offline.wav`)
 - [x] SENSOR ONLINE (`sensor_online.wav`)
-- [X] SURFOPS POSITIONAL FIX UPDATED
+- [X] SURFOPS POSITIONAL FIX UPDATED (`surfops_position.wav`)
+- [X] SENSOR CALIBRATION ERROR (`sensor_calibration_error.wav`)
+- [X] SENSOR RECALIBRATED (`sensor_calibration_recalibrated.wav`)
 
 
 ## BIOMONITOR
