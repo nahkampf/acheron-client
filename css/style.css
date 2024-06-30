@@ -182,6 +182,186 @@ meter {
     color: rgba(0, 0, 0, 0) !important;
   }
 }
+.button-grey {
+  background-color: #AAAAAA;
+  outline-offset: 1px;
+  outline: 1px dashed #AAAAAA;
+  color: #181918;
+  margin: 3px;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.button-grey:active {
+  background-color: #181918;
+  outline-offset: 1px;
+  outline: 1px dashed #AAAAAA;
+  color: #AAAAAA;
+  margin: 3px;
+  padding: 2px;
+  cursor: wait;
+}
+
+.button-blue {
+  background-color: #5555FF;
+  outline-offset: 1px;
+  outline: 1px dashed #5555FF;
+  color: #181918;
+  margin: 3px;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.button-blue:active {
+  background-color: #181918;
+  outline-offset: 1px;
+  outline: 1px dashed #5555FF;
+  color: #5555FF;
+  margin: 3px;
+  padding: 2px;
+  cursor: wait;
+}
+
+.button-green {
+  background-color: #55FF55;
+  outline-offset: 1px;
+  outline: 1px dashed #55FF55;
+  color: #181918;
+  margin: 3px;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.button-green:active {
+  background-color: #181918;
+  outline-offset: 1px;
+  outline: 1px dashed #55FF55;
+  color: #55FF55;
+  margin: 3px;
+  padding: 2px;
+  cursor: wait;
+}
+
+.button-cyan {
+  background-color: #55FFFF;
+  outline-offset: 1px;
+  outline: 1px dashed #55FFFF;
+  color: #181918;
+  margin: 3px;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.button-cyan:active {
+  background-color: #181918;
+  outline-offset: 1px;
+  outline: 1px dashed #55FFFF;
+  color: #55FFFF;
+  margin: 3px;
+  padding: 2px;
+  cursor: wait;
+}
+
+.button-magenta {
+  background-color: #FF55FF;
+  outline-offset: 1px;
+  outline: 1px dashed #FF55FF;
+  color: #181918;
+  margin: 3px;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.button-magenta:active {
+  background-color: #181918;
+  outline-offset: 1px;
+  outline: 1px dashed #FF55FF;
+  color: #FF55FF;
+  margin: 3px;
+  padding: 2px;
+  cursor: wait;
+}
+
+.button-red {
+  background-color: #FF5555;
+  outline-offset: 1px;
+  outline: 1px dashed #FF5555;
+  color: #181918;
+  margin: 3px;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.button-red:active {
+  background-color: #181918;
+  outline-offset: 1px;
+  outline: 1px dashed #FF5555;
+  color: #FF5555;
+  margin: 3px;
+  padding: 2px;
+  cursor: wait;
+}
+
+.button-yellow {
+  background-color: #FFFF55;
+  outline-offset: 1px;
+  outline: 1px dashed #FFFF55;
+  color: #181918;
+  margin: 3px;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.button-yellow:active {
+  background-color: #181918;
+  outline-offset: 1px;
+  outline: 1px dashed #FFFF55;
+  color: #FFFF55;
+  margin: 3px;
+  padding: 2px;
+  cursor: wait;
+}
+
+.button-orange {
+  background-color: #ffc12b;
+  outline-offset: 1px;
+  outline: 1px dashed #ffc12b;
+  color: #181918;
+  margin: 3px;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.button-orange:active {
+  background-color: #181918;
+  outline-offset: 1px;
+  outline: 1px dashed #ffc12b;
+  color: #ffc12b;
+  margin: 3px;
+  padding: 2px;
+  cursor: wait;
+}
+
+.button-white {
+  background-color: #ffffff;
+  outline-offset: 1px;
+  outline: 1px dashed #ffffff;
+  color: #181918;
+  margin: 3px;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.button-white:active {
+  background-color: #181918;
+  outline-offset: 1px;
+  outline: 1px dashed #ffffff;
+  color: #ffffff;
+  margin: 3px;
+  padding: 2px;
+  cursor: wait;
+}
+
 body {
   padding: 1;
   margin: 0;
@@ -495,7 +675,6 @@ tr.unhandled {
 #codeblue p {
   color: #ffffff;
   font-size: 32px;
-  animation: fg-blinker 1s linear infinite;
 }
 
 #codeblue .codeheader {
@@ -514,6 +693,31 @@ tr.unhandled {
 
 dialog {
   z-index: 100000;
+}
+
+#intercepts tr {
+  cursor: pointer !important;
+}
+
+#intercepts tr:hover {
+  background-color: #FFFF55 !important;
+  color: #181918 !important;
+}
+
+select {
+  background-color: #181918;
+  border: #FFFF55;
+  font-size: inherit;
+  font-family: "Noto Sans Mono", "monospace";
+  cursor: pointer;
+  line-height: inherit;
+  z-index: 1;
+  outline: none;
+}
+
+option {
+  font-family: "Noto Sans Mono", "monospace";
+  font-size: inherit;
 }
 
 /*# sourceMappingURL=style.css.map */

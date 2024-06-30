@@ -1,5 +1,16 @@
 <script src="/api.js"></script>
+<?php
+switch (@$_GET["action"]) {
+    case "edit_signal":
+        include("edit_signal.php");
+        exit;
+    break;
+}
+?>
 <script>
+function editSignal(id) {
+    alert(id);
+}
 window.addEventListener("load", (event) => {
     /**
      * SENSORS
@@ -137,6 +148,7 @@ window.addEventListener("load", (event) => {
         var tbody = document.getElementById("intercepts").getElementsByTagName('tbody')[0];
         row = tbody.insertRow(0);
         row.setAttribute('id', 'signal_' + signal.id);
+        row.setAttribute('onClick', 'location.href=\"javascript:editSignal(' + signal.id + ')\";');
         // is this signal handled?
         if (signal.handled == "N") {
             row.setAttribute('class', 'unhandled');
@@ -239,8 +251,8 @@ window.addEventListener("load", (event) => {
         <thead>
             <tr>
                 <th>INTERCEPT TIME</th>
-                <th>PRIMARY</th>
-                <th>SECONDARY</th>
+                <th>P. SENSOR</th>
+                <th>S. SENSOR</th>
                 <th>VELOCITY</th>
                 <th>HEADING</th>
                 <th>DESIGNATION</th>

@@ -1,0 +1,20 @@
+@each $color in $bright-colors {
+    .button-#{nth($color,1)} {
+      background-color: nth($color,2);
+      outline-offset: 1px;
+      outline: 1px dashed nth($color, 2);
+      color: $black;
+      margin: 3px;
+      padding: 2px;
+      cursor: pointer;
+    }
+    .button-#{nth($color,1)}:active {
+        background-color: $black;
+        outline-offset: 1px;
+        outline: 1px dashed nth($color, 2);
+        color: nth($color, 2);
+        margin: 3px;
+        padding: 2px;
+        cursor:wait;
+      }
+}

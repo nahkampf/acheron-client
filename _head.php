@@ -13,6 +13,7 @@ window.addEventListener("load", (event) => {
         const data = await get("<?=$api_dsn?>alert");
         if (data) {
             handleAlert(data);
+            firstRun = false;
         }
     }
     function handleAlert(data) {
