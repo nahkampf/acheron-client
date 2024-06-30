@@ -5,7 +5,7 @@ window.addEventListener("load", (event) => {
      * SENSORS
      */
     async function getSensors() {
-        const data = await get("http://acheron-server.test:81/public/api/sensors");
+        const data = await get("<?=$api_dsn?>sensors");
         if (data) {
             handleSensors(data);
         }
@@ -93,7 +93,7 @@ window.addEventListener("load", (event) => {
      * SIGNALS
      */
     async function getSignals(firstRun = false) {
-        const data = await get("http://acheron-server.test:81/public/api/signals");
+        const data = await get("<?=$api_dsn?>signals");
         if (data) {
             handleSignals(data, firstRun);
         }

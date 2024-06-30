@@ -10,7 +10,7 @@ window.addEventListener("load", (event) => {
     var alertSwitch = null; // holds our "last state" so that we don't play stuff on repeat
     var firstRun = true; // is this the first time we run? Then don't do the audio
     async function getAlertState() {
-        const data = await get("http://acheron-server.test:81/public/api/alert");
+        const data = await get("<?=$api_dsn?>alert");
         if (data) {
             handleAlert(data);
         }

@@ -4,6 +4,8 @@ $config = @parse_ini_file("config.ini");
 if (!$config) {
     die("Unable to load configuration. Please contact an onsite maintenence technician.");
 }
+$api_dsn = $config["API_BASEURL"] . ":" . $config["API_PORT"]  . "/"  . $config["API_PATH"] . "/";
+
 // if we're in "production mode" don't display errors and only log critical ones
 
 
@@ -17,7 +19,7 @@ if ($config["MODE"] != "dev") {
     error_reporting(E_ALL);
 }
 
-switch(@$config["TERMINAL_TYPE"]) {
+switch (@$config["TERMINAL_TYPE"]) {
     case "sensor":
         $window_title = "SENSOR STATION";
         $topbar_title = "SENSOR STATION";
@@ -36,7 +38,7 @@ switch(@$config["TERMINAL_TYPE"]) {
     case "science":
         $window_title = "SCIENCE STATION";
         $topbar_title = "SCIENCE STATION";
-        $page = "science";       
+        $page = "science";
         break;
     case "logs":
         $window_title = "LOG STATION";
