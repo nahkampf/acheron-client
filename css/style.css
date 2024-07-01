@@ -188,8 +188,9 @@ meter {
   outline: 1px dashed #AAAAAA;
   color: #181918;
   margin: 3px;
-  padding: 2px;
+  padding: 5px;
   cursor: pointer;
+  display: inline-block;
 }
 
 .button-grey:active {
@@ -198,7 +199,7 @@ meter {
   outline: 1px dashed #AAAAAA;
   color: #AAAAAA;
   margin: 3px;
-  padding: 2px;
+  padding: 5px;
   cursor: wait;
 }
 
@@ -208,8 +209,9 @@ meter {
   outline: 1px dashed #5555FF;
   color: #181918;
   margin: 3px;
-  padding: 2px;
+  padding: 5px;
   cursor: pointer;
+  display: inline-block;
 }
 
 .button-blue:active {
@@ -218,7 +220,7 @@ meter {
   outline: 1px dashed #5555FF;
   color: #5555FF;
   margin: 3px;
-  padding: 2px;
+  padding: 5px;
   cursor: wait;
 }
 
@@ -228,8 +230,9 @@ meter {
   outline: 1px dashed #55FF55;
   color: #181918;
   margin: 3px;
-  padding: 2px;
+  padding: 5px;
   cursor: pointer;
+  display: inline-block;
 }
 
 .button-green:active {
@@ -238,7 +241,7 @@ meter {
   outline: 1px dashed #55FF55;
   color: #55FF55;
   margin: 3px;
-  padding: 2px;
+  padding: 5px;
   cursor: wait;
 }
 
@@ -248,8 +251,9 @@ meter {
   outline: 1px dashed #55FFFF;
   color: #181918;
   margin: 3px;
-  padding: 2px;
+  padding: 5px;
   cursor: pointer;
+  display: inline-block;
 }
 
 .button-cyan:active {
@@ -258,7 +262,7 @@ meter {
   outline: 1px dashed #55FFFF;
   color: #55FFFF;
   margin: 3px;
-  padding: 2px;
+  padding: 5px;
   cursor: wait;
 }
 
@@ -268,8 +272,9 @@ meter {
   outline: 1px dashed #FF55FF;
   color: #181918;
   margin: 3px;
-  padding: 2px;
+  padding: 5px;
   cursor: pointer;
+  display: inline-block;
 }
 
 .button-magenta:active {
@@ -278,7 +283,7 @@ meter {
   outline: 1px dashed #FF55FF;
   color: #FF55FF;
   margin: 3px;
-  padding: 2px;
+  padding: 5px;
   cursor: wait;
 }
 
@@ -288,8 +293,9 @@ meter {
   outline: 1px dashed #FF5555;
   color: #181918;
   margin: 3px;
-  padding: 2px;
+  padding: 5px;
   cursor: pointer;
+  display: inline-block;
 }
 
 .button-red:active {
@@ -298,7 +304,7 @@ meter {
   outline: 1px dashed #FF5555;
   color: #FF5555;
   margin: 3px;
-  padding: 2px;
+  padding: 5px;
   cursor: wait;
 }
 
@@ -308,8 +314,9 @@ meter {
   outline: 1px dashed #FFFF55;
   color: #181918;
   margin: 3px;
-  padding: 2px;
+  padding: 5px;
   cursor: pointer;
+  display: inline-block;
 }
 
 .button-yellow:active {
@@ -318,7 +325,7 @@ meter {
   outline: 1px dashed #FFFF55;
   color: #FFFF55;
   margin: 3px;
-  padding: 2px;
+  padding: 5px;
   cursor: wait;
 }
 
@@ -328,8 +335,9 @@ meter {
   outline: 1px dashed #ffc12b;
   color: #181918;
   margin: 3px;
-  padding: 2px;
+  padding: 5px;
   cursor: pointer;
+  display: inline-block;
 }
 
 .button-orange:active {
@@ -338,7 +346,7 @@ meter {
   outline: 1px dashed #ffc12b;
   color: #ffc12b;
   margin: 3px;
-  padding: 2px;
+  padding: 5px;
   cursor: wait;
 }
 
@@ -348,8 +356,9 @@ meter {
   outline: 1px dashed #ffffff;
   color: #181918;
   margin: 3px;
-  padding: 2px;
+  padding: 5px;
   cursor: pointer;
+  display: inline-block;
 }
 
 .button-white:active {
@@ -358,7 +367,7 @@ meter {
   outline: 1px dashed #ffffff;
   color: #ffffff;
   margin: 3px;
-  padding: 2px;
+  padding: 5px;
   cursor: wait;
 }
 

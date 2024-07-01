@@ -16,7 +16,7 @@
                             <td>?</td>
                             <td>DESIGNATION</td>
                             <td>
-                                <button class="button-yellow">DESIGNATE</button>
+                                <a href="?action=edit_signal&subaction=designate&id=" class="button-green">DESIGNATE</a>
                             </td>
                         </tr>
                         <tr>

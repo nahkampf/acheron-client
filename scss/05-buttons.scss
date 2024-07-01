@@ -5,8 +5,9 @@
       outline: 1px dashed nth($color, 2);
       color: $black;
       margin: 3px;
-      padding: 2px;
+      padding: 5px;
       cursor: pointer;
+      display: inline-block;
     }
     .button-#{nth($color,1)}:active {
         background-color: $black;
@@ -14,7 +15,7 @@
         outline: 1px dashed nth($color, 2);
         color: nth($color, 2);
         margin: 3px;
-        padding: 2px;
+        padding: 5px;
         cursor:wait;
       }
 }
