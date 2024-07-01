@@ -134,3 +134,30 @@ tr.unhandled {
 dialog {
     z-index:100000;
 }
+#intercepts tr {
+    cursor: pointer !important;
+}
+#intercepts tr:hover {
+    background-color: $yellow !important;
+    color: $black !important;
+}
+
+select {
+    background-color: $black;
+    border: $yellow;
+    font-size: inherit;
+    font-family: $font-stack;
+    cursor: pointer;
+    line-height: inherit;
+  
+    // Stack above custom arrow
+    z-index: 1;  
+    // Remove focus outline, will add on alternate element
+    outline: none;
+}
+
+option {
+    font-family: $font-stack;
+    font-size: inherit;
+}
+
