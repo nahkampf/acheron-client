@@ -20,45 +20,46 @@ window.addEventListener("load", (event) => {
         var state = data.contents.current_state;
         const bluedialog = document.querySelector("#codeblue");
         const reddialog = document.querySelector("#codered");
+        currentAlertLevel = window.localStorage.getItem('currentAlertLevel') ? window.localStorage.getItem('currentAlertLevel') : "";
+        console.log("data state: " + state + ", local storage: " + currentAlertLevel);
         switch(state) {
             case "red":
-                if (!firstRun) {
-                    bluedialog.close();
-                    let codeRedNotification = new Audio('/assets/sound/code_red.wav');
-                    if (alertSwitch != "red") {
-                        codeRedNotification.play();
-                    }
-                    alertSwitch = "red";
-                    reddialog.showModal();
+                console.log("data state: " + state + ", local storage: " + currentAlertLevel);
+                bluedialog.close();
+                let codeRedNotification = new Audio('/assets/sound/code_red.wav');
+                if (currentAlertLevel != "red") {
+                    console.log("RED ALERT!");
+                    codeRedNotification.play();
                 }
+                alertSwitch = "red";
+                localStorage.setItem('currentAlertLevel', alertSwitch);
+                reddialog.showModal();
                 break;
             case "blue":
-                if (!firstRun) {
-                    reddialog.close();
-                    const dialog = document.querySelector("#codeblue");
-                    let codeBlueNotification = new Audio('/assets/sound/code_blue.wav');
-                    if (alertSwitch != "blue") {
-                        codeBlueNotification.play();       
-                    }
-                    alertSwitch = "blue";
-                    bluedialog.showModal();
+                reddialog.close();
+                const dialog = document.querySelector("#codeblue");
+                let codeBlueNotification = new Audio('/assets/sound/code_blue.wav');
+                if (currentAlertLevel != "blue") {
+                    console.log("CODE BLUE");
+                    codeBlueNotification.play();       
                 }
+                alertSwitch = "blue";
+                localStorage.setItem('currentAlertLevel', alertSwitch);
+                bluedialog.showModal();
                 break;
             case "green":
             default:
-                if (!firstRun) {
-                    bluedialog.close();
-                    reddialog.close();
-                    let codeGreenNotification = new Audio('/assets/sound/code_green.wav');
-                    if (alertSwitch != "green") {
-                        codeGreenNotification.play();       
-                        firstRun = false;
-                    }
-                    alertSwitch = "green";
+                bluedialog.close();
+                reddialog.close();
+                let codeGreenNotification = new Audio('/assets/sound/code_green.wav');
+                if (currentAlertLevel != "green") {
+                    console.log("CONDITION GREEN");
+                    codeGreenNotification.play();       
                 }
+                alertSwitch = "green";
+                localStorage.setItem('currentAlertLevel', alertSwitch);
                 break;
         }
-        firstRun = false;
     }
 
     var alertMonitor = setInterval(() => {
