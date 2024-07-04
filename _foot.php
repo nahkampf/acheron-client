@@ -1,4 +1,4 @@
-    <div class="bottombar">* ERROR: Network Connection lost. Retrying connection...</div>
+    <div class="bottombar">* Haven network: ONLINE. </div>
 </div>
 </body>
 </html>
