@@ -9,7 +9,7 @@ switch (@$_GET["action"]) {
 ?>
 <script>
 function editSignal(id) {
-    alert(id);
+    location.href="?action=edit_signal&id=" + id;
 }
 window.addEventListener("load", (event) => {
     /**
@@ -140,6 +140,10 @@ window.addEventListener("load", (event) => {
                 let newSignalNotification = new Audio('/assets/sound/signal_intercepted.wav');
                 newSignalNotification.play();
                 console.log("Hey, new signal! Play a sound!");
+                // update the intercept time serverside
+                const formData = new FormData();
+                formData.append("intercepted", "NOW()");
+                var upddata = post("<?=$api_dsn?>signals/" + signal.id, formData);
             }
         }
 
@@ -164,11 +168,11 @@ window.addEventListener("load", (event) => {
 
         const cell_primary = row.insertCell();
         var bearing = new Number(signal.primary_sensor.bearings.bearing_from_source);
-        cell_primary.textContent = signal.primary_sensor.name + ": " + bearing.toPrecision(3) + "°";
+        cell_primary.textContent = signal.primary_sensor.name + ": " + bearing + "°";
 
         cell_secondary = row.insertCell();
         var bearing = new Number(signal.secondary_sensor.bearings.bearing_from_source);
-        cell_secondary.textContent = signal.secondary_sensor.name + ": " + bearing.toPrecision(3) + "°";
+        cell_secondary.textContent = signal.secondary_sensor.name + ": " + bearing + "°";
 
         const cell_velocity = row.insertCell();
         cell_velocity.textContent = signal.velocity + " m/s";
@@ -209,34 +213,21 @@ window.addEventListener("load", (event) => {
         <table class="blue zebra">
                 <thead>
                     <tr>
-                        <th>SURFOPS POSITION FIX</th>
                         <th>TIME</th>
+                        <th>P.SENSOR</th>
+                        <th>S.SENSOR</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>??</td>
                         <td>17:32:12</td>
+                        <td>CHARLIE/173&deg;</td>
+                        <td>DELTA/38&deg;</td>
                     </tr>
                     <tr>
-                        <td>??</td>
-                        <td>17:29:17</td>
-                    </tr>
-                    <tr>
-                        <td>??</td>
-                        <td>17:22:12</td>
-                    </tr>
-                    <tr>
-                        <td>??</td>
-                        <td>17:18:35</td>
-                    </tr>
-                    <tr>
-                        <td>??</td>
-                        <td>17:13:04</td>
-                    </tr>
-                    <tr>
-                        <td>??</td>
-                        <td>17:08:01</td>
+                        <td>17:27:04</td>
+                        <td>CHARLIE/172&deg;</td>
+                        <td>DELTA/37&deg;</td>
                     </tr>
                 </tbody>
             </table>
