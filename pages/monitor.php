@@ -7,29 +7,87 @@
 
     <script type="text/javascript">
     window.addEventListener("load", (event) => {
-        var cachedData = null;
+        var firstRun = true;
+        var cache = new Map();
+
+        function getRandomInt(min, max) {
+            const minCeiled = Math.ceil(min);
+            const maxFloored = Math.floor(max);
+            return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled); // The maximum is inclusive and the minimum is inclusive
+        }
+
         // first, we clone the (invisible) template
         var template = document.getElementById('template');
         async function getVitals() {
-            const data = await get("http://acheron-server.test:81/public/api/biomonitor");
+            const data = await get("<?=$api_dsn?>biomonitor");
             if (data) {
                 Object.entries(data.contents).forEach((monitor) => {
                     var clone = template.cloneNode(true);
-                    clone.id = "monitor_" + monitor[1].id;
-                    clone.classList.remove('template');
+                    clone.style.display="block";
+                    clone.id = "monitor_" + monitor[1].surferId;
+                    //clone.classList.remove('template');
+                    clone.style.backgroundColor = monitor[1].color;
                     //clone.classList.add()
-                    clone.getElementsByClassName('name')[0].innerHtml = "hehe";
+                    clone.getElementsByClassName('name')[0].innerText = monitor[1].person_name;
+                    clone.getElementsByClassName('rank')[0].innerText = monitor[1].rank;
+                    clone.getElementsByClassName('portrait')[0].src = "/assets/portraits/" + monitor[1].portrait;
 
-                    clone.setAttribute('display', 'block');
-                    template.after(clone);
+                    // randomize values from parameters
+                    clone.getElementsByClassName('pulse')[0].innerText = getRandomInt(monitor[1].pulse_low, monitor[1].pulse_high);
+                    clone.getElementsByClassName('spo2')[0].innerText = getRandomInt(monitor[1].spo2_low, monitor[1].spo2_high) + "%";
+                    clone.getElementsByClassName('bp')[0].innerText = getRandomInt(monitor[1].bp_low, monitor[1].bp_high) + "/m";
+
+//                    document.getElementById("monitor_" + monitor[1].surferId).remove();
+                    if (firstRun) {
+                        template.after(clone);
+                    } else {
+                        document.getElementById("monitor_" + monitor[1].surferId).replaceWith(clone);
+                    }
+                    // compare status to previous and maybe play a sound
+                    // but skip if this is our first run
+                    if (!firstRun) {
+                        var oldstate = cache.get(monitor[1].surferId);
+                        var newstate = monitor[1].currentState;
+                        if (oldstate != newstate) { // state changed
+                            if (newstate == 8) { // deceased
+                                console.log("play: DECEASED");
+                            }
+                            if (newstate == 9) { // dying
+                                console.log("play: CRITICAL");
+                            }
+                            if (newstate == 9) { // dying
+                                console.log("play: CRITICAL");
+                            }
+                        }
+                        if (cache.get(monitor[1].surferId) != monitor[1].currentState) {
+                            if (monitor[1].currentState != 6 && cache.get(monitor[1].surferId))
+                            switch(monitor[1].currentState) {
+                                case "8": // DECEASED
+                                    console.log("play: DECEASED");
+                                    break;
+                                    case "9": // DYING
+                                    console.log("play: CRITICAL");
+                                    break;
+                                    case "6": // DISCONNECTED
+                                    console.log("play: DISCONNECTED");
+                                    break;
+                                    case "8": // DECEASED
+                                    console.log("play: DECEASED");
+                                    break;
+                            }
+                            console.log("CHANGE OF STATE! For id " + monitor[1].surferId + " state changed from " + cache.get(monitor[1].surferId) + " to " + monitor[1].currentState);
+                        }
+                    }
+                    cache.set(monitor[1].surferId, monitor[1].currentState);
                 });
-                cachedData = data; // update cache
             } else {
                 console.error("No data from biomonitor!");
             }
+            template.style.display="none";
+            firstRun = false;
         }
-
         getVitals();
+        var Timer = setInterval(getVitals, 4000);
     });
     </script>
     <style>
@@ -156,13 +214,18 @@ p, h1, h2, h3, h4, h5, h6 {
         50% { opacity: 1 }
         100% { opacity: 0 }
     }
+    .template {
+        float:left;
+        width:50%;
+        display: block;
+    }
     </style>
   </head>
 <body>
-  <div id="template">
+  <div id="template" class="template">
     <table style="width:100%;">
         <tr>
-            <td style="width:175px;"><img id="monitor_0_portrait" src="portrait.png" class="portrait"></td>
+            <td style="width:175px;"><img src="/assets/portraits/nope.gif" class="portrait"></td>
             <td>
                 <table style="width:100%;">
                     <tr>
@@ -173,14 +236,14 @@ p, h1, h2, h3, h4, h5, h6 {
                         </td>
                     </tr>
                     <tr>
-                        <td>PULSE</td>
-                        <td>SpO<sup>2</sup></td>
-                        <td>BP</td>
+                        <td>PULSE RATE</td>
+                        <td>SPO<sup>2</sup></td>
+                        <td>RESPIRATION RATE</td>
                     </tr>
                     <tr>
-                        <td class="val">118</td>
-                        <td class="val">94%</td>
-                        <td class="val">112/70</td>
+                        <td class="val pulse">-</td>
+                        <td class="val spo2">-</td>
+                        <td class="val bp">-</td>
                     </tr>
                 </table>
             </td>

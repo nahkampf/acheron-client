@@ -50,6 +50,11 @@ switch (@$config["TERMINAL_TYPE"]) {
         $topbar_title = "COMMANDERS STATION";
         $page = "commander";
         break;
+        case "monitor":
+            $window_title = "BIOMONITOR";
+            $topbar_title = "BIOMONITOR";
+            $page = "monitor";
+            break;
     case "public":
     default:
         $window_title = "PUBLIC TERMINAL";

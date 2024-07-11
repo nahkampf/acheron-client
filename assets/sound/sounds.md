@@ -28,6 +28,7 @@ The biomonitor uses a female voice instead: https://www.naturalreaders.com/onlin
 - [X] BIOMONITOR RECONNECTED (`biomonitor_reconnected.wav`)
 - [X] ATTENTION: VITALS DEGRADED (`vitals_degraded.wav`)
 - [X] ATTENTION: VITALS CRITICAL (`vitals_critical.wav`)
+- [X] VITALS IMPROVED (`vitals_improved.wav`)
 - [X] ATTENTION: THERE HAS BEEN A RECORDED FATALITY (`fatality.wav`)
 
 ## SIGINT
