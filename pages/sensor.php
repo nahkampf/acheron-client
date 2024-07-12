@@ -166,7 +166,7 @@ window.addEventListener("load", (event) => {
             cell_status.className = "red fgblink";
         }
         if (sensor.status == "degraded") {
-            cell_status.textContent = "DEGRADED";
+            cell_status.innerHTML = "<a href=\"calibrate.php?id=" + sensor.id + "\">DEGRADED</a>";
             cell_status.className = "yellow fgblink";
         }
     }

@@ -1,3 +1,18 @@
+<?php
+if (@$_GET["action"] == "done") {
+    // read the config file
+    $config = @parse_ini_file("config.ini");
+    if (!$config) {
+        die("Unable to load configuration. Please contact an onsite maintenence technician.");
+    }
+    $api_dsn = $config["API_BASEURL"] . ":" . $config["API_PORT"]  . "/"  . $config["API_PATH"] . "/";
+
+    file_get_contents($api_dsn . "sensors/recalibrate/" . (int)$_GET["id"]);
+    sleep(1);
+    header("Location: /");
+    die();
+}
+?>
 <html><head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <title>Frequency Scope</title>
@@ -267,7 +282,7 @@ li {
 <body>
 <section class="view init active">
   <button>
-    activate
+    RECALIBRATE
   </button>
 </section>
 
@@ -316,7 +331,7 @@ li {
         </ul>
       </div>
       <div class="system detune">
-        <h3>detune</h3>
+        <h3>phase</h3>
         <ul>
           <li>00</li>
           <li>10</li>
@@ -331,7 +346,7 @@ li {
         </ul>
       </div>
       <div class="system sync">
-        <h3>sync</h3>
+        <h3>save</h3>
       </div>
     </div>
 
@@ -516,6 +531,12 @@ document.querySelector(".init > button").addEventListener("click", async () => {
   activate();
 });
 
+document.querySelector(".sync > h3").addEventListener("click", async() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    var id = searchParams.get('id');
+    location.href="calibrate.php?id=" + id + "&action=done";
+});
+
 let playing = false;
 let active = false;
 let sample = new Tone.Oscillator().toDestination();
@@ -575,7 +596,7 @@ function calcMatch() {
   document.querySelector(".match").innerText = 100 - Math.ceil(diff * 100) - (match ? 0 : 1);
 
   const syncBtn = document.querySelector(".sync > h3")
-  syncBtn.classList[match ? "add" : "remove"]("warning");
+  //syncBtn.classList[match ? "add" : "remove"]("warning");
   
   const loadBtn = document.querySelector(".load-sample")
   loadBtn.classList[match ? "remove" : "add"]("inactive");
@@ -591,7 +612,7 @@ function activate() {
   scope.connect(scopeWaveform);
 
   createWaveform({
-    color: "#FF5555",
+    color: "#55FFFF",
     tone: sampleWaveform,
     height: window.innerHeight,
     parent: document.querySelector("#sample"),
