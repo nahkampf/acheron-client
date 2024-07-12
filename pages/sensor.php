@@ -13,6 +13,39 @@ function editSignal(id) {
 }
 window.addEventListener("load", (event) => {
     /**
+     * SURFOPS POSITIONS
+     */
+    async function getSurfopsPositions() {
+        const surfopsdata = await get("<?=$api_dsn?>surfops");
+        if (surfopsdata) {
+            var tbody = document.getElementById("surfops_posfix").getElementsByTagName('tbody')[0];
+            tbody.replaceChildren(); 
+            handleSurfopsPositions(surfopsdata);
+        }
+    }
+
+    function handleSurfopsPositions(surfopsdata) {
+        Object.entries(surfopsdata.contents).reverse().forEach((posfix) => {
+            updateSurfopsTable(posfix[1]);
+        });
+    }
+
+
+    function updateSurfopsTable(surfopsdata) {
+        // if it exists, update that column
+        // if it doesn't exist, append that column to the top
+        var tbody = document.getElementById("surfops_posfix").getElementsByTagName('tbody')[0];
+        row = tbody.insertRow(0);
+        row.setAttribute('id', 'surfops_sensor_' + surfopsdata.id);
+        const cell_time = row.insertCell();
+        cell_time.textContent = surfopsdata.timestamp;
+        const cell_primary = row.insertCell();
+        cell_primary.textContent = surfopsdata.primary_sensor.name + "/" + surfopsdata.primary_sensor.bearing_from_target + "°";
+        const cell_secondary = row.insertCell();
+        cell_secondary.textContent = surfopsdata.secondary_sensor.name + "/" + surfopsdata.secondary_sensor.bearing_from_target + "°";
+    }
+
+     /**
      * SENSORS
      */
     async function getSensors() {
@@ -74,11 +107,15 @@ window.addEventListener("load", (event) => {
     }
     // run a first one
     getSensors();
+    getSurfopsPositions();
 
     // then set up an interval
     const updateSensors = setInterval(() => {
         var sensors = getSensors();       
     }, 5000);
+    const updateSurfopsPositions = setInterval(() => {
+        var surfopsPositions = getSurfopsPositions();       
+    }, 10000);
 
     function updateSensorTable(sensor) {
         // if it exists, update that column
@@ -210,7 +247,7 @@ window.addEventListener("load", (event) => {
         </td>
         <td style="width: 50%">
         &gt; SURFOPS POSITION TRACKING
-        <table class="blue zebra">
+        <table class="blue zebra" id="surfops_posfix">
                 <thead>
                     <tr>
                         <th>TIME</th>
@@ -219,16 +256,6 @@ window.addEventListener("load", (event) => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>17:32:12</td>
-                        <td>CHARLIE/173&deg;</td>
-                        <td>DELTA/38&deg;</td>
-                    </tr>
-                    <tr>
-                        <td>17:27:04</td>
-                        <td>CHARLIE/172&deg;</td>
-                        <td>DELTA/37&deg;</td>
-                    </tr>
                 </tbody>
             </table>
         </td>
