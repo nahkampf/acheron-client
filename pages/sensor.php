@@ -15,6 +15,9 @@ window.addEventListener("load", (event) => {
     /**
      * SURFOPS POSITIONS
      */
+    const knownPositions = [];
+    var posFirstRun = true;
+
     async function getSurfopsPositions() {
         const surfopsdata = await get("<?=$api_dsn?>surfops");
         if (surfopsdata) {
@@ -25,9 +28,23 @@ window.addEventListener("load", (event) => {
     }
 
     function handleSurfopsPositions(surfopsdata) {
+        var played = false;
         Object.entries(surfopsdata.contents).reverse().forEach((posfix) => {
             updateSurfopsTable(posfix[1]);
+            if (knownPositions.includes(posfix[1].id)) {
+            } else {
+                console.log(posFirstRun);
+                if (!posFirstRun) {
+                    if (!played) {
+                        let newPosfixNotification = new Audio('/assets/sound/surfops_position.wav');
+                        newPosfixNotification.play();
+                    }
+                }
+            }
+            knownPositions[posfix[1].id] = posfix[1].id;
         });
+        played = true;
+        posFirstRun = false;
     }
 
 
@@ -66,22 +83,34 @@ window.addEventListener("load", (event) => {
         var isUpdated = 0;
         var offlineNotification = 0;
         var onlineNotification = 0;
+        var degradeNotification = 0;
         Object.entries(sensorData.contents).forEach((sensor) => {
             Object.entries(cachedSensors).forEach((cachedSensor) => {
                 if (cachedSensor[1].id == sensor[1].id) {
                     existsInCache++;
                     if (cachedSensor[1].status != sensor[1].status) {
-                        if (cachedSensor[1].status == "online") {
+                        if (sensor[1].status == "offline") {
                             if (offlineNotification < 1) {
                                 offlineNotification = 1;
                                 let newSignalNotification = new Audio('/assets/sound/sensor_offline.wav');
                                 newSignalNotification.play();
                             }
                         }
-                        if (cachedSensor[1].status == "offline") {
+                        if (sensor[1].status == "online") {
                             if (onlineNotification < 1) {
                                 onlineNotification = 1;
-                                let newSignalNotification = new Audio('/assets/sound/sensor_online.wav');
+                                if (cachedSensor[1].status == "degraded") {
+                                    var newSignalNotification = new Audio('/assets/sound/sensor_calibration_recalibrated.wav');
+                                } else {
+                                    var newSignalNotification = new Audio('/assets/sound/sensor_online.wav');
+                                }
+                                newSignalNotification.play();
+                            }
+                        }
+                        if (sensor[1].status == "degraded") {
+                            if (degradeNotification < 1) {
+                                degradeNotification = 1;
+                                let newSignalNotification = new Audio('/assets/sound/sensor_calibration_error.wav');
                                 newSignalNotification.play();
                             }
                         }
@@ -131,9 +160,14 @@ window.addEventListener("load", (event) => {
         if (sensor.status == "online") {
             cell_status.textContent = "ONLINE";
             cell_status.className = "green";
-        } else {
+        } 
+        if (sensor.status == "offline") {
             cell_status.textContent = "OFFLINE";
             cell_status.className = "red fgblink";
+        }
+        if (sensor.status == "degraded") {
+            cell_status.textContent = "DEGRADED";
+            cell_status.className = "yellow fgblink";
         }
     }
 
