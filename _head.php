@@ -5,8 +5,18 @@
         <link rel="stylesheet" href="css/style.css">
     </head>
 <body>
+<script src="hotkeys.min.js"></script>
 <script>
 window.addEventListener("load", (event) => {
+    hotkeys('ctrl+del', function (event, handler){
+        switch (handler.key) {
+            case 'ctrl+del':
+                window.location="admin.php";
+                event.preventDefault()
+            break;
+        }
+    });
+
     var alertSwitch = null; // holds our "last state" so that we don't play stuff on repeat
     var firstRun = true; // is this the first time we run? Then don't do the audio
     async function getAlertState() {
