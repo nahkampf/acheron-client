@@ -55,7 +55,7 @@ window.addEventListener("load", (event) => {
         row = tbody.insertRow(0);
         row.setAttribute('id', 'surfops_sensor_' + surfopsdata.id);
         const cell_time = row.insertCell();
-        cell_time.textContent = surfopsdata.timestamp;
+        cell_time.textContent = surfopsdata.timestamp.substring(11);
         const cell_primary = row.insertCell();
         cell_primary.textContent = surfopsdata.primary_sensor.name + "/" + surfopsdata.primary_sensor.bearing_from_target + "°";
         const cell_secondary = row.insertCell();
