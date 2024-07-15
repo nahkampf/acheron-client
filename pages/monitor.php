@@ -149,7 +149,7 @@ p, h1, h2, h3, h4, h5, h6 {
       }
       .card {
         width:960px;
-        height:270px;
+        height:265px;
         color: #ccc;
         box-sizing: border-box;
         border:1px solid black;
@@ -157,8 +157,8 @@ p, h1, h2, h3, h4, h5, h6 {
         background-color: #123b1d;
       }
       .portrait {
-        height:270px;
-        border:1px solid white;
+        height:265px;
+        border:1px solid black;
       }
       .name {
         font-size: 60px;
