@@ -1,11 +1,30 @@
 <?php
+if (@$_GET["action"] == "select") {
+    $url = 'https://example.com/'; 
+    $data = ['signalId' => $_GET["id"], 'emitterId' => $_GET["set"]]; 
+    $options = [ 
+        'http' => [ 
+            'method'  => 'POST', 
+            'header'  => 'Content-type: application/x-www-form-urlencoded', 
+            'content' => http_build_query($data), 
+        ], 
+    ]; 
+    $context  = stream_context_create($options); 
+    $response = file_get_contents($api_dsn . "emitters/sigint/classify", false, $context);
+    header("Location: /");
+    die();
+}
 if (@$_GET["action"] == "sigint") {
     $signal = json_decode(file_get_contents($api_dsn . "signals/" . (int)$_GET["id"]));
     $emitter = json_decode(file_get_contents($api_dsn . "emitters/" . $signal->emitter))[0];
 ?>
+<script src="/essential_audio.js"></script>
+<link rel="stylesheet" href="/css/essential_audio.css"></link>
 <script>
-        let firstSearch = 1;
-        window.addEventListener("load", (event) => {
+    let firstSearch = 1;
+    window.addEventListener("load", (event) => {
+        var originalSpec = document.getElementById('original_spectrogram');
+        window.original = originalSpec.cloneNode(true);
         const cwsvalue = document.querySelector("#cwsvalue");
         const cwsinput = document.querySelector("#cwsinput");
         cwsvalue.textContent = cwsinput.value;
@@ -54,6 +73,7 @@ if (@$_GET["action"] == "sigint") {
                 return;
             }
             resholder.innerHTML = "";
+            var unknown = "<br><a href=\"\" class=\"button-red\">DESIGNATE UKNOWN</a>";
             Object.entries(res.contents).forEach((xm) => {
                 console.log(xm);
                 var cw = "";
@@ -77,16 +97,32 @@ if (@$_GET["action"] == "sigint") {
                     dc += "[<span class=\"cyan\">END</span>] ";
                 }
                 dc += "</td></tr>";
-                var spectro = "<tr><td colspan=\"2\"><a href=\"\" class=\"button-yellow\">SPECTROGRAM</a><a href=\"\" class=\"button-green\">SELECT</a></td></tr>";
+                var spectro = "<tr><td colspan=\"2\"><a id=\"compare_" +  xm[1].id + "\" href=\"javascript:compareSpectrogram('" + xm[1].spectrogram_sample + "');\" class=\"button-yellow\">COMPARE</a><a href=\"/?action=select&id=<?=$_GET["id"]?>&set=" + xm[1].id + "\" class=\"button-green\">SELECT</a><a href=\"\" class=\"button-magenta\">AUTO</a></td></tr>";
                 var vel = (xm[1].known_max_velocity == null) ? "unknown" : xm[1].known_max_velocity + " m/s";
                 var maxvel = "<tr><td>Known max velocity</td><td><span class=\"cyan\">" + vel  +"</span></tr>"
                 var content = "<table class=\"sigint_searchresult\"><tr><td colspan=\"2\" class=\"sigint_searchresult_header\">" + xm[1].name + " (" + xm[1].number + ")</td></tr>" + cw + dc + maxvel + spectro + "</table>"
                 //resholder.innerHTML = resholder.innerHTML + xm[1].name + " (" + xm[1].number + ")<br>";
                 resholder.innerHTML = resholder.innerHTML + content;
             });
+            resholder.innerHTML = resholder.innerHTML + unknown;
         }
+
+        // do the initial search 
         getSigintData();
     });
+    
+    function compareSpectrogram(spectroFile) {
+        var source = document.getElementById('original_spectrogram');
+        source.src = "/assets/spectrograms/" + spectroFile;
+        var revert = document.getElementById('revert');
+        revert.style.display="inline";
+    }
+    function revert() {
+        var source = document.getElementById('original_spectrogram');
+        source.src = window.original.src;
+        var revert = document.getElementById('revert');
+        revert.style.display = "none";
+    }
 </script>
 <form method="get" id="sigint_form" name="sigint_form">
 <table>
@@ -99,7 +135,24 @@ if (@$_GET["action"] == "sigint") {
                         <td>
                             <table>
                                 <tr>
-                                    <td><img src="../assets/spectrograms/<?=$emitter->spectrogram_sample?>"></td>
+                                    <td id="spectrogram_holder">
+                                        <a href="javascript: revert();" class="button-red" id="revert" style="position: absolute; top: 50px; left: 10px; display: none;">REVERT TO ORIGINAL</a>
+                                        <img src="../assets/spectrograms/<?=$emitter->spectrogram_sample?>" id="original_spectrogram">
+                                    </td>
+                                </tr>
+                                <tr>
+                                </tr>
+                                <tr>
+                                    <td>
+                                    > AUDIO RECORDING
+                                    <br><br>
+                                    <div id="player_box" style="padding-left:30px;width:1370px;">
+	                                    <div>
+		                                    <div class="essential_audio" data-url="/assets/waveforms/<?=$emitter->waveform_file?>"></div>
+	                                    </div>
+                                    </div>
+                                    <br><br>
+                                    </td>
                                 </tr>
                             </table>
                         </td>
@@ -166,9 +219,14 @@ if (@$_GET["action"] == "sigint") {
 </table>
 </form>
 
+<dialog id="spectro">
+</dialog>
+
 <?php
 die();
 }
+
+$signals = json_decode(file_get_contents($api_dsn . "signals/"));
 ?>
 <table>
     <tr>
@@ -179,20 +237,37 @@ die();
                     <tr>
                         <th>TIME</th>
                         <th>DESIGNATION</th>
+                        <th>VELOCITY</th>
                         <th>TYPE</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="unhandled">
-                        <td>23:05:12</td>
-                        <td>A4</td>
-                        <td><a class="button-yellow" href="?action=sigint&id=2">ANALYZE</a></td>
+<?php
+foreach($signals as $idx => $signal) {
+?>
+                    <tr class="<?=($signal->handled == "Y") ? "" : "unhandled"?>">
+                        <td><?=substr($signal->interceptTime,  11)?></td>
+                        <td><?=$signal->designation?></td>
+                        <td><?=$signal->velocity?></td>
+                        <td>
+<?php
+if ($signal->handled == "Y") {
+    $emitter = json_decode(file_get_contents($api_dsn . "emitters/" . $signal->designated_type))[0];
+    echo mb_strtoupper($emitter->name) . " [" . $emitter->number . "]";
+?>
+                            <a class="button-grey" href="?action=sigint&id=<?=$signal->id?>">REDESIGNATE</a>
+<?php
+} else {
+?>
+                            <a class="button-yellow" href="?action=sigint&id=<?=$signal->id?>">ANALYZE</a>
+<?php
+}
+?>
+                        </td>
                     </tr>
-                    <tr>
-                        <td>23:02:12</td>
-                        <td>A3</td>
-                        <td>XM23/PUPPETEER</td>
-                    </tr>
+<?php
+}
+?>
                 </tbody>
             </table>
         </td>

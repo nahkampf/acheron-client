@@ -5,6 +5,7 @@
         <link rel="stylesheet" href="css/style.css">
     </head>
 <body>
+<script src="api.js"></script>
 <script src="hotkeys.min.js"></script>
 <script>
 window.addEventListener("load", (event) => {
@@ -16,7 +17,6 @@ window.addEventListener("load", (event) => {
             break;
         }
     });
-
     var alertSwitch = null; // holds our "last state" so that we don't play stuff on repeat
     var firstRun = true; // is this the first time we run? Then don't do the audio
     async function getAlertState() {
@@ -31,10 +31,10 @@ window.addEventListener("load", (event) => {
         const bluedialog = document.querySelector("#codeblue");
         const reddialog = document.querySelector("#codered");
         currentAlertLevel = window.localStorage.getItem('currentAlertLevel') ? window.localStorage.getItem('currentAlertLevel') : "";
-        console.log("data state: " + state + ", local storage: " + currentAlertLevel);
+//        console.log("data state: " + state + ", local storage: " + currentAlertLevel);
         switch(state) {
             case "red":
-                console.log("data state: " + state + ", local storage: " + currentAlertLevel);
+//                console.log("data state: " + state + ", local storage: " + currentAlertLevel);
                 bluedialog.close();
                 let codeRedNotification = new Audio('/assets/sound/code_red.wav');
                 if (currentAlertLevel != "red") {
