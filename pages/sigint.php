@@ -1,7 +1,9 @@
 <?php
 if (@$_GET["action"] == "select") {
-    $url = 'https://example.com/'; 
-    $data = ['signalId' => $_GET["id"], 'emitterId' => $_GET["set"]]; 
+    $data = ['signalId' => @$_GET["id"], 'emitterId' => @$_GET["set"]]; 
+    if (@$_GET["auto"]) {
+        $data = ['signalId' => $_GET["id"], 'auto' => true];
+    }
     $options = [ 
         'http' => [ 
             'method'  => 'POST', 
@@ -64,7 +66,7 @@ if (@$_GET["action"] == "sigint") {
             resholder = document.getElementById("ress");
             if (res.contents == "[]") {
                 resholder.innerHTML = "";
-                resholder.innerHTML = "No search results<br><a href=\"\" class=\"button-red\">DESIGNATE UKNOWN</a>";
+                resholder.innerHTML = "No search results<br><a href=\"\" class=\"button-red\">DESIGNATE UKNOWN</a><a href=\"?action=select&id=<?=$_GET["id"]?>&auto=true\" class=\"button-grey\">AUTO</a>";
                 let sigintError = new Audio('/assets/sound/wrong.wav');
                 if (firstSearch == 0) {
                     sigintError.play();
@@ -73,7 +75,7 @@ if (@$_GET["action"] == "sigint") {
                 return;
             }
             resholder.innerHTML = "";
-            var unknown = "<br><a href=\"\" class=\"button-red\">DESIGNATE UKNOWN</a>";
+            var unknown = "<br><a href=\"\" class=\"button-red\">DESIGNATE UKNOWN</a><a href=\"?action=select&id=<?=$_GET["id"]?>&auto=true\" class=\"button-grey\">AUTO</a>";
             Object.entries(res.contents).forEach((xm) => {
                 console.log(xm);
                 var cw = "";
@@ -97,7 +99,7 @@ if (@$_GET["action"] == "sigint") {
                     dc += "[<span class=\"cyan\">END</span>] ";
                 }
                 dc += "</td></tr>";
-                var spectro = "<tr><td colspan=\"2\"><a id=\"compare_" +  xm[1].id + "\" href=\"javascript:compareSpectrogram('" + xm[1].spectrogram_sample + "');\" class=\"button-yellow\">COMPARE</a><a href=\"/?action=select&id=<?=$_GET["id"]?>&set=" + xm[1].id + "\" class=\"button-green\">SELECT</a><a href=\"\" class=\"button-magenta\">AUTO</a></td></tr>";
+                var spectro = "<tr><td colspan=\"2\"><a id=\"compare_" +  xm[1].id + "\" href=\"javascript:compareSpectrogram('" + xm[1].spectrogram_sample + "');\" class=\"button-yellow\">COMPARE</a><a href=\"/?action=select&id=<?=$_GET["id"]?>&set=" + xm[1].id + "\" class=\"button-green\">SELECT</a></td></tr>";
                 var vel = (xm[1].known_max_velocity == null) ? "unknown" : xm[1].known_max_velocity + " m/s";
                 var maxvel = "<tr><td>Known max velocity</td><td><span class=\"cyan\">" + vel  +"</span></tr>"
                 var content = "<table class=\"sigint_searchresult\"><tr><td colspan=\"2\" class=\"sigint_searchresult_header\">" + xm[1].name + " (" + xm[1].number + ")</td></tr>" + cw + dc + maxvel + spectro + "</table>"
