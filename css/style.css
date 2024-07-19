@@ -1020,4 +1020,12 @@ dialog {
   z-index: 100000;
 }
 
+#original_spectrogram {
+  max-width: 100%;
+}
+
+#spectrogram_holder {
+  max-width: 80%;
+}
+
 /*# sourceMappingURL=style.css.map */
