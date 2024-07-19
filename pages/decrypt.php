@@ -159,7 +159,7 @@ foreach($signals as $signal) {
                         echo "<span class=\"red\">UNKNOWN</span>";
                     }
                 ?></td>
-                <td><a href="?module=decrypt&id=2" class="button-green">DECIPHER</a></td>
+                <td><a href="?module=decrypt&id=<?=$signal->id?>" class="button-green">DECIPHER</a></td>
             </tr>
 <?php
 }
