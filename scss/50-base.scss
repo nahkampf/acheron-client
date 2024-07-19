@@ -248,3 +248,23 @@ input[type=checkbox] {
     width:200px;
     height: 20px;
   }
+  #codered .codeheader {
+    font-size: 64px !important;
+}
+#autoresolve {
+    background-color: $blue;
+}
+#autoresolve p {
+    color: $white;
+    font-size: 32px;
+}
+#autoresolve .codeheader {
+    font-size: 64px !important;
+}
+#autoresolve::backdrop {
+    background-color: $blue-dark;
+    opacity:0.75;
+}
+dialog {
+    z-index:100000;
+}

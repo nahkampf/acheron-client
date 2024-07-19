@@ -994,4 +994,30 @@ input[type=checkbox]:disabled {
   height: 20px;
 }
 
+#codered .codeheader {
+  font-size: 64px !important;
+}
+
+#autoresolve {
+  background-color: #5555FF;
+}
+
+#autoresolve p {
+  color: #ffffff;
+  font-size: 32px;
+}
+
+#autoresolve .codeheader {
+  font-size: 64px !important;
+}
+
+#autoresolve::backdrop {
+  background-color: #0000AA;
+  opacity: 0.75;
+}
+
+dialog {
+  z-index: 100000;
+}
+
 /*# sourceMappingURL=style.css.map */
