@@ -18,6 +18,6 @@ _____________  ____   _____   _____/  |_|  |__   ____  __ __  ______
 > the following modules are currently installed:                    
 </pre>
     <a href="?module=decrypt" class="button-yellow">SIGNAL DECIPHER</a> 
-    <a href="" class="button-green">SAMPLES</a> 
+    <!-- <a href="" class="button-green">SAMPLES</a>-->
     <a href="" class="button-cyan">ARCHIVE</a> 
 </div>
