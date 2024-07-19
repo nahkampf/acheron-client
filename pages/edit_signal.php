@@ -47,7 +47,7 @@ $signalData = json_decode(file_get_contents($api_dsn . "signals/" . $_GET["id"])
 <?php
 if ($signalData->interceptingOperator) {
 ?>
-                            <?=mb_strtoupper($signalData->interceptingOperator)?>
+                            <?=strtoupper($signalData->interceptingOperator)?>
 <?php
 } else {
 ?>
