@@ -148,7 +148,7 @@ if (@$_GET["action"] == "sigint") {
                                     <td>
                                     > AUDIO RECORDING
                                     <br><br>
-                                    <div id="player_box" style="padding-left:30px;width:1370px;">
+                                    <div id="player_box" style="padding-left:30px;max-width:1370px;">
 	                                    <div>
 		                                    <div class="essential_audio" data-url="/assets/waveforms/<?=$emitter->waveform_file?>"></div>
 	                                    </div>
@@ -211,6 +211,11 @@ if (@$_GET["action"] == "sigint") {
                                 <tr>
                                     <td id="ress" colspan="2"></td>
                                 </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <a href="/" class="button-yellow">&laquo; BACK</a>
+                                    </td>
+                                </tr>
                             </table>
                         </td>
                     </tr>
@@ -230,6 +235,7 @@ die();
 
 $signals = json_decode(file_get_contents($api_dsn . "signals/"));
 ?>
+<a href="/" class="button-yellow">&laquo; LOAD SIGNALS</a>
 <table>
     <tr>
         <td>
@@ -246,16 +252,17 @@ $signals = json_decode(file_get_contents($api_dsn . "signals/"));
                 <tbody>
 <?php
 foreach($signals as $idx => $signal) {
+  if($signal->handled == "N") continue;
 ?>
                     <tr class="<?=($signal->handled == "Y") ? "" : "unhandled"?>">
-                        <td><?=substr($signal->interceptTime,  11)?></td>
+                        <td><?=@substr($signal->interceptTime,  11)?></td>
                         <td><?=$signal->designation?></td>
                         <td><?=$signal->velocity?></td>
                         <td>
 <?php
 if ($signal->handled == "Y") {
     $emitter = json_decode(file_get_contents($api_dsn . "emitters/" . $signal->designated_type))[0];
-    echo mb_strtoupper($emitter->name) . " [" . $emitter->number . "]";
+    echo strtoupper($emitter->name) . " [" . $emitter->number . "]";
 ?>
                             <a class="button-grey" href="?action=sigint&id=<?=$signal->id?>">REDESIGNATE</a>
 <?php
