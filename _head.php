@@ -19,12 +19,23 @@ window.addEventListener("load", (event) => {
     });
     var alertSwitch = null; // holds our "last state" so that we don't play stuff on repeat
     var firstRun = true; // is this the first time we run? Then don't do the audio
+    async function getTime() {
+        const data = await get("<?=$api_dsn?>time");
+        if (data) {
+            handleTime(data);
+        }
+    }
     async function getAlertState() {
         const data = await get("<?=$api_dsn?>alert");
         if (data) {
             handleAlert(data);
             firstRun = false;
         }
+    }
+
+    function handleTime(data) {
+        console.log(data.contents[0].ts.substring(11));
+        document.getElementById('currenttime').innerHTML = data.contents[0].ts.substring(11);
     }
     function handleAlert(data) {
         var state = data.contents.current_state;
@@ -75,6 +86,10 @@ window.addEventListener("load", (event) => {
     var alertMonitor = setInterval(() => {
         var currentAlertState = getAlertState();
     }, "2000");
+
+    var timeTes = setInterval(() => {
+        var currentTime = getTime();
+    }, "5000");
 });
 </script>
 <dialog class="alert" id="codered">
