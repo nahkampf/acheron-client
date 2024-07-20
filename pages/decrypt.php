@@ -149,7 +149,7 @@ foreach($signals as $signal) {
     $emitter = json_decode(file_get_contents($api_dsn . "emitters/" . $signal->designated_type));
 ?>
             <tr>
-                <td><?=$signal->interceptTime?></td>
+                <td><?=substr($signal->interceptTime, 11)?></td>
                 <td><?=$signal->designation?></td>
                 <td><?=strtoupper($emitter[0]->name)?> [<?=$emitter[0]->number?>]</td>
                 <td><?php
