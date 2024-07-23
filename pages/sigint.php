@@ -252,7 +252,7 @@ $signals = json_decode(file_get_contents($api_dsn . "signals/"));
                 <tbody>
 <?php
 foreach($signals as $idx => $signal) {
-  if($signal->handled == "N") continue;
+  //if($signal->handled == "N") continue;
 ?>
                     <tr class="<?=($signal->handled == "Y") ? "" : "unhandled"?>">
                         <td><?=@substr($signal->interceptTime,  11)?></td>
@@ -260,7 +260,7 @@ foreach($signals as $idx => $signal) {
                         <td><?=$signal->velocity?></td>
                         <td>
 <?php
-if ($signal->handled == "Y") {
+if ($signal->designated_type) {
     $emitter = json_decode(file_get_contents($api_dsn . "emitters/" . $signal->designated_type))[0];
     echo strtoupper($emitter->name) . " [" . $emitter->number . "]";
 ?>
