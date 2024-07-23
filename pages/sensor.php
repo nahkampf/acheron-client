@@ -57,9 +57,9 @@ window.addEventListener("load", (event) => {
         const cell_time = row.insertCell();
         cell_time.textContent = surfopsdata.timestamp.substring(11);
         const cell_primary = row.insertCell();
-        cell_primary.textContent = surfopsdata.primary_sensor.name + "/" + surfopsdata.primary_sensor.bearing_from_target + "°";
+        cell_primary.textContent = surfopsdata.primary_sensor.name + "/" + surfopsdata.primary_sensor.bearing_from_source + "°";
         const cell_secondary = row.insertCell();
-        cell_secondary.textContent = surfopsdata.secondary_sensor.name + "/" + surfopsdata.secondary_sensor.bearing_from_target + "°";
+        cell_secondary.textContent = surfopsdata.secondary_sensor.name + "/" + surfopsdata.secondary_sensor.bearing_from_source + "°";
     }
 
      /**

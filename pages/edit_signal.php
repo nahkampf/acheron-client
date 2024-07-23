@@ -41,7 +41,7 @@ $signalData = json_decode(file_get_contents($api_dsn . "signals/" . $_GET["id"])
                     <table class="yellow">
                         <tr>
                             <td class="yellow-dark">INTERCEPT TIME</td>
-                            <td><?=substr($signalData->interceptTime, 11,8);?></td>
+                            <td><?=@substr($signalData->interceptTime, 11);?></td>
                             <td class="yellow-dark">OPERATOR</td>
                             <td>
 <?php
@@ -61,19 +61,19 @@ if ($signalData->interceptingOperator) {
                             <td class="yellow-dark">PRIMARY SENSOR</td>
                             <td><?=$signalData->primary_sensor->name?></td>
                             <td class="yellow-dark">BEARING</td>
-                            <td><?=floor($signalData->primary_sensor->bearings->bearing_from_target)?>&deg;</td>
+                            <td><?=floor($signalData->primary_sensor->bearings->bearing_from_source)?>&deg;</td>
                         </tr>
                         <tr>
                             <td class="yellow-dark">SECONDARY SENSOR</td>
                             <td><?=$signalData->secondary_sensor->name?></td>
                             <td class="yellow-dark">BEARING</td>
-                            <td><?=floor($signalData->secondary_sensor->bearings->bearing_from_target)?>&deg;</td>
+                            <td><?=floor($signalData->secondary_sensor->bearings->bearing_from_source)?>&deg;</td>
                         </tr>
                         <tr>
                             <td class="yellow-dark">VELOCITY</td>
-                            <td><?=(int)$signalData->velocity?> m/s</td>
+                            <td><?=((int)$signalData->velocity == 0) ? "--" : (int)$signalData->velocity . " m/s"?></td>
                             <td class="yellow-dark">HEADING</td>
-                            <td><?=$signalData->heading?>&deg;</td>
+                            <td><?=($signalData->heading) ? $signalData->heading . "&deg;" : "--"?></td>
                         </tr>
 
                         <tr>
