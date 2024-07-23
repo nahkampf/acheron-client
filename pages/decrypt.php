@@ -145,13 +145,18 @@ $signals = json_decode(file_get_contents($api_dsn . "signals/"));
         </thead>
         <tbody>
 <?php
-foreach($signals as $signal) {
-    $emitter = json_decode(file_get_contents($api_dsn . "emitters/" . $signal->designated_type));
+foreach ($signals as $signal) {
+    if ((int)$signal->designed_type > 0) {
+        $emitter = json_decode(file_get_contents($api_dsn . "emitters/" . $signal->designated_type));
+        $emitterText = strtoupper($emitter[0]->name) . " [" . $emitter[0]->number . "]";
+    } else {
+        $emitterText = "--";
+    }
 ?>
             <tr>
                 <td><?=substr($signal->interceptTime, 11)?></td>
                 <td><?=$signal->designation?></td>
-                <td><?=strtoupper($emitter[0]->name)?> [<?=$emitter[0]->number?>]</td>
+                <td><?=$emitterText?></td>
                 <td><?php
                     if ($signal->decipheredMessage) {
                         echo $signal->decipheredMessage;
