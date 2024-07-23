@@ -265,6 +265,20 @@ input[type=checkbox] {
     background-color: $blue-dark;
     opacity:0.75;
 }
+#analyzer {
+    background-color: $red;
+}
+#analyzer p {
+    color: $white;
+    font-size: 32px;
+}
+#analyzer .codeheader {
+    font-size: 64px !important;
+}
+#analyzer::backdrop {
+    background-color: $red-dark;
+    opacity:0.75;
+}
 dialog {
     z-index:100000;
 }
@@ -273,4 +287,7 @@ dialog {
 }
 #spectrogram_holder {
     max-width:80%;
+}
+#counter {
+    color: $yellow;
 }

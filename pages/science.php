@@ -3,6 +3,10 @@ if (@$_GET["module"] == "decrypt") {
     require "decrypt.php";
     die();
 }
+if (@$_GET["module"] == "samples") {
+    require "samples.php";
+    die();
+}
 ?>
 <div style="width:100%; text-align:center;">
 <pre>
@@ -19,5 +23,5 @@ _____________  ____   _____   _____/  |_|  |__   ____  __ __  ______
 </pre>
     <a href="?module=decrypt" class="button-yellow">SIGNAL DECIPHER</a> 
     <!-- <a href="" class="button-green">SAMPLES</a>-->
-    <a href="" class="button-cyan">ARCHIVE</a> 
+    <a href="?module=samples" class="button-cyan">SAMPLE ANALYZER</a> 
 </div>

@@ -1016,6 +1016,24 @@ input[type=checkbox]:disabled {
   opacity: 0.75;
 }
 
+#analyzer {
+  background-color: #FF5555;
+}
+
+#analyzer p {
+  color: #ffffff;
+  font-size: 32px;
+}
+
+#analyzer .codeheader {
+  font-size: 64px !important;
+}
+
+#analyzer::backdrop {
+  background-color: #AA0000;
+  opacity: 0.75;
+}
+
 dialog {
   z-index: 100000;
 }
@@ -1026,6 +1044,10 @@ dialog {
 
 #spectrogram_holder {
   max-width: 80%;
+}
+
+#counter {
+  color: #FFFF55;
 }
 
 /*# sourceMappingURL=style.css.map */
